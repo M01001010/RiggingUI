@@ -1,10 +1,7 @@
-from PySide2  import QtCore
-from PySide2 import QtWidgets
-from shiboken2 import wrapInstance
+
 import maya.cmds as cmds
 import maya.OpenMayaUI as omui
 import pymel.core as pm
-import os
 import math
 
 
