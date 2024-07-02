@@ -6,7 +6,6 @@ import math
 
 
 
-
 class Obj():
 
     @staticmethod
@@ -24,6 +23,7 @@ class Obj():
 
 class Joint():
 
+
     @staticmethod
     def make_circle_ctrl(normal=(0,0,1)):
         ctrls = []
@@ -33,22 +33,18 @@ class Joint():
             Obj.init_attr(joint, "offset", "string")
             Obj.delete_joint_obj(joint, "ctrl")
             Obj.delete_joint_obj(joint, "offset")
-
             ctrl_node = pm.circle(nr = normal)
             ctrl = ctrl_node[0]
             ctrls.append(ctrl)
             offset = pm.group(ctrl, n="offset")
             offsets.append(offset)
-
             joint.setAttr("ctrl", ctrl.fullPath())
             joint.setAttr("offset", offset.fullPath())
-
             cnst = pm.pointConstraint(joint, offset)
             pm.delete(cnst)
             cnst = pm.orientConstraint(joint, offset)
             pm.delete(cnst)
         
-
         for x in reversed( range(1, len(ctrls) ) ):
             print(offsets[x], ctrls[x-1])
             pm.parent(offsets[x], ctrls[x-1])
@@ -93,7 +89,6 @@ class CTRL():
     def __init__(self, ctrl):
         self.ctrl = ctrl
 
-
     def set_orient():
         pass
 
@@ -133,12 +128,21 @@ class Select():
 
 
     @staticmethod
-    def tips(joint):
-        pass
+    def leaves():
+        tree = []
+        for sel in pm.selected():
+            pm.select(sel, hierarchy=True)
+            tree += pm.selected()
+        leaf_joints = []
+        for joint in tree:
+            children = pm.listRelatives(joint, children=True, type='joint')
+            if not children:
+                leaf_joints.append(joint)
+        pm.select(pm.ls(leaf_joints, type="joint"))
 
 
     @staticmethod
-    def selectType(self):
+    def joints():
         pm.select(pm.ls(type="joint"))
 
 
