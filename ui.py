@@ -5,7 +5,7 @@ from shiboken2 import wrapInstance
 import maya.cmds as cmds
 import maya.OpenMayaUI as omui
 import pymel.core as pm
-from rigging import util
+from rigging import util # << the associated "utill.py"
 
 
 
@@ -19,7 +19,7 @@ class RigUI(QtWidgets.QDialog):
         super(RigUI, self).__init__(parent)
         self.setWindowFlags(QtCore.Qt.Window)
         self.setObjectName('CreatePolygonUI_uniqueId')
-        self.setWindowTitle("Light Rig Controller")
+        self.setWindowTitle("Rig UI")
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
         self.editMode = False
         self.create_widgets()
